@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
     <header class="header">
@@ -26,11 +26,11 @@
             </div>
             
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="/listings.html" class="nav-link">House Listing</a></li>
-                <li><a href="/sale.html" class="nav-link">Property for Sale</a></li>
-                <li><a href="/agents.html" class="nav-link">Connect with Agent</a></li>
-                <li><a href="/apply.html" class="nav-link">Apply</a></li>
-                <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="listings.html" class="nav-link">House Listing</a></li>
+                <li><a href="sale.html" class="nav-link">Property for Sale</a></li>
+                <li><a href="agents.html" class="nav-link">Connect with Agent</a></li>
+                <li><a href="apply.html" class="nav-link">Apply</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
             </ul>
             
             <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
@@ -148,7 +148,7 @@
                     <!-- Featured listings will be populated by JavaScript -->
                 </div>
                 <div class="section-cta">
-                    <a href="/listings.html" class="btn btn-outline">View All Listings</a>
+                    <a href="listings.html" class="btn btn-outline">View All Listings</a>
                 </div>
             </div>
         </section>
@@ -165,18 +165,18 @@
                     <address>Warri, Delta State, Nigeria</address>
                 </div>
                 <div class="footer-links">
-                    <a href="/faq.html">FAQ</a>
-                    <a href="/support.html">Support</a>
-                    <a href="/terms.html">Terms</a>
-                    <a href="/privacy.html">Privacy</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="support.html">Support</a>
+                    <a href="terms.html">Terms</a>
+                    <a href="privacy.html">Privacy</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="/assets/js/storage.js"></script>
-    <script src="/assets/js/state.js"></script>
-    <script src="/assets/js/ui.js"></script>
+    <script src="assests/js/storage.js"></script>
+    <script src="assests/js/state.js"></script>
+    <script src="assests/js/ui.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize storage and load featured listings
@@ -222,7 +222,7 @@
                 }
             }
             
-            window.location.href = `/listings.html?${params.toString()}`;
+            window.location.href = `listings.html?${params.toString()}`;
         }
     </script>
 </body>
