@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>House Listings - Warri Apartment Hunt</title>
+    <meta name="description" content="Browse available apartments for rent in Warri and surrounding areas. Filter by location, price, and property type.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <div class="nav-logo"></div>
+                <a href="/" class="nav-title">Warri Apartment Hunt</a>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/listings.html" class="nav-link active">House Listing</a></li>
+                <li><a href="/sale.html" class="nav-link">Property for Sale</a></li>
+                <li><a href="/agents.html" class="nav-link">Connect with Agent</a></li>
+                <li><a href="/apply.html" class="nav-link">Apply</a></li>
+                <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+            </ul>
+            
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <i class="ri-menu-line"></i>
+            </button>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <div class="container">
+            <strong>All agent fees are Fixed, affordable and fair, no extra cost!</strong>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="listings-layout">
+                <aside class="sidebar">
+                    <div class="sidebar-header">
+                        <h3>Filters</h3>
+                        <button class="sidebar-toggle" id="sidebar-toggle">
+                            <i class="ri-filter-3-line"></i>
+                        </button>
+                    </div>
+                    
+                    <form class="filters-form" id="filters-form">
+                        <div class="filter-section">
+                            <h4>Location</h4>
+                            <div class="checkbox-group" id="location-checkboxes">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h4>Bedrooms</h4>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="bedrooms" value="1">
+                                    <span class="checkmark"></span>
+                                    1 Bedroom
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="bedrooms" value="2">
+                                    <span class="checkmark"></span>
+                                    2 Bedrooms
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="bedrooms" value="3">
+                                    <span class="checkmark"></span>
+                                    3+ Bedrooms
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h4>Budget Range</h4>
+                            <div class="range-inputs">
+                                <input type="number" name="minBudget" placeholder="Min (₦)" class="filter-input">
+                                <input type="number" name="maxBudget" placeholder="Max (₦)" class="filter-input">
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h4>Property Type</h4>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="type" value="Self-contain">
+                                    <span class="checkmark"></span>
+                                    Self-contain
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="type" value="Mini-flat">
+                                    <span class="checkmark"></span>
+                                    Mini-flat
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="type" value="1BR">
+                                    <span class="checkmark"></span>
+                                    1BR
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="type" value="2BR">
+                                    <span class="checkmark"></span>
+                                    2BR
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="type" value="3BR">
+                                    <span class="checkmark"></span>
+                                    3BR
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="type" value="Bungalow">
+                                    <span class="checkmark"></span>
+                                    Bungalow
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="type" value="Duplex">
+                                    <span class="checkmark"></span>
+                                    Duplex
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="available" value="true">
+                                <span class="checkmark"></span>
+                                Available only
+                            </label>
+                        </div>
+                        
+                        <div class="filter-actions">
+                            <button type="button" class="btn btn-outline" id="clear-filters">Clear All</button>
+                            <button type="submit" class="btn btn-primary">Apply Filters</button>
+                        </div>
+                    </form>
+                </aside>
+                
+                <div class="listings-content">
+                    <div class="listings-header">
+                        <div class="results-info">
+                            <span id="results-count">0 listings found</span>
+                        </div>
+                        
+                        <div class="sort-controls">
+                            <select name="sort" id="sort-select" class="filter-select">
+                                <option value="newest">Newest First</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="listings-grid" id="listings-grid">
+                        <!-- Listings will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="nav-logo"></div>
+                        <span>Warri Apartment Hunt</span>
+                    </div>
+                    <address>Warri, Delta State, Nigeria</address>
+                </div>
+                <div class="footer-links">
+                    <a href="/faq.html">FAQ</a>
+                    <a href="/support.html">Support</a>
+                    <a href="/terms.html">Terms</a>
+                    <a href="/privacy.html">Privacy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Gallery Modal -->
+    <div class="modal" id="gallery-modal">
+        <div class="modal-backdrop" data-modal-close></div>
+        <div class="modal-content gallery-modal-content">
+            <button class="modal-close" data-modal-close aria-label="Close gallery">
+                <i class="ri-close-line"></i>
+            </button>
+            <div class="gallery-main">
+                <img id="gallery-main-image" src="" alt="">
+                <button class="gallery-nav gallery-prev" id="gallery-prev">
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+                <button class="gallery-nav gallery-next" id="gallery-next">
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+            </div>
+            <div class="gallery-thumbs" id="gallery-thumbs">
+                <!-- Thumbnails will be populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Inspection Modal -->
+    <div class="modal" id="inspection-modal">
+        <div class="modal-backdrop" data-modal-close></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Schedule Inspection</h3>
+                <button class="modal-close" data-modal-close aria-label="Close modal">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="inspection-form">
+                    <input type="hidden" name="apartmentId" id="inspection-apartment-id">
+                    <div class="form-group">
+                        <label for="inspection-name">Full Name *</label>
+                        <input type="text" id="inspection-name" name="name" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="inspection-phone">Phone Number *</label>
+                        <input type="tel" id="inspection-phone" name="phone" required class="form-input" pattern="^\+?234[0-9]{10}$">
+                    </div>
+                    <div class="form-group">
+                        <label for="inspection-date">Preferred Date *</label>
+                        <input type="date" id="inspection-date" name="date" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="inspection-time">Preferred Time *</label>
+                        <select id="inspection-time" name="time" required class="form-input">
+                            <option value="">Select time</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+                        <button type="submit" class="btn btn-primary">Schedule Inspection</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/storage.js"></script>
+    <script src="/assets/js/state.js"></script>
+    <script src="/assets/js/ui.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeStorage();
+            setupNavigation();
+            setupListingsPage();
+            
+            // Listen for storage updates
+            window.addEventListener('storageUpdated', function(event) {
+                if (event.detail.keys.includes('rentListings')) {
+                    applyFiltersAndSort();
+                }
+            });
+        });
+
+        function setupListingsPage() {
+            // Parse URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Setup location checkboxes
+            const locations = ['Warri', 'Effurun', 'Ekpan', 'Ugborikoko', 'Airport Road', 'Jakpa', 'PTI', 'Udu', 'Ekete', 'Okuokoko'];
+            const locationContainer = document.getElementById('location-checkboxes');
+            locationContainer.innerHTML = locations.map(location => `
+                <label class="checkbox-label">
+                    <input type="checkbox" name="location" value="${location}" ${urlParams.get('location') === location ? 'checked' : ''}>
+                    <span class="checkmark"></span>
+                    ${location}
+                </label>
+            `).join('');
+            
+            // Pre-fill form from URL params
+            const form = document.getElementById('filters-form');
+            for (const [key, value] of urlParams.entries()) {
+                const input = form.querySelector(`[name="${key}"]`);
+                if (input) {
+                    if (input.type === 'checkbox') {
+                        const checkbox = form.querySelector(`[name="${key}"][value="${value}"]`);
+                        if (checkbox) checkbox.checked = true;
+                    } else {
+                        input.value = value;
+                    }
+                }
+            }
+            
+            // Setup event listeners
+            form.addEventListener('change', debounce(applyFiltersAndSort, 300));
+            document.getElementById('clear-filters').addEventListener('click', clearFilters);
+            document.getElementById('sort-select').addEventListener('change', applyFiltersAndSort);
+            document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
+            
+            // Initial load
+            applyFiltersAndSort();
+        }
+
+        function applyFiltersAndSort() {
+            const form = document.getElementById('filters-form');
+            const sortSelect = document.getElementById('sort-select');
+            const filters = getFormFilters(form);
+            const sortBy = sortSelect.value;
+            
+            let listings = getListings();
+            
+            // Apply filters
+            listings = filterListings(listings, filters);
+            
+            // Apply sort
+            listings = sortListings(listings, sortBy);
+            
+            // Update results
+            updateResultsCount(listings.length);
+            renderListings(listings);
+        }
+
+        function getFormFilters(form) {
+            const formData = new FormData(form);
+            const filters = {};
+            
+            for (const [key, value] of formData.entries()) {
+                if (!filters[key]) filters[key] = [];
+                filters[key].push(value);
+            }
+            
+            return filters;
+        }
+
+        function filterListings(listings, filters) {
+            return listings.filter(listing => {
+                // Location filter
+                if (filters.location && filters.location.length > 0) {
+                    if (!filters.location.includes(listing.area)) return false;
+                }
+                
+                // Bedrooms filter
+                if (filters.bedrooms && filters.bedrooms.length > 0) {
+                    const bedroomMatch = filters.bedrooms.some(bed => {
+                        if (bed === '3') return listing.bedrooms >= 3;
+                        return listing.bedrooms.toString() === bed;
+                    });
+                    if (!bedroomMatch) return false;
+                }
+                
+                // Budget filter
+                if (filters.minBudget && filters.minBudget.length > 0) {
+                    if (listing.price < parseInt(filters.minBudget[0])) return false;
+                }
+                if (filters.maxBudget && filters.maxBudget.length > 0) {
+                    if (listing.price > parseInt(filters.maxBudget[0])) return false;
+                }
+                
+                // Type filter
+                if (filters.type && filters.type.length > 0) {
+                    if (!filters.type.includes(listing.type)) return false;
+                }
+                
+                // Available filter
+                if (filters.available && filters.available.includes('true')) {
+                    if (!listing.available) return false;
+                }
+                
+                return true;
+            });
+        }
+
+        function sortListings(listings, sortBy) {
+            const sorted = [...listings];
+            
+            switch (sortBy) {
+                case 'newest':
+                    return sorted.sort((a, b) => b.createdAt - a.createdAt);
+                case 'price-asc':
+                    return sorted.sort((a, b) => a.price - b.price);
+                case 'price-desc':
+                    return sorted.sort((a, b) => b.price - a.price);
+                default:
+                    return sorted;
+            }
+        }
+
+        function updateResultsCount(count) {
+            document.getElementById('results-count').textContent = `${count} listing${count !== 1 ? 's' : ''} found`;
+        }
+
+        function renderListings(listings) {
+            const container = document.getElementById('listings-grid');
+            
+            if (listings.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="ri-home-4-line"></i>
+                        <h3>No listings found</h3>
+                        <p>Try adjusting your filters to see more results</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = listings.map(listing => renderListingCard(listing, true)).join('');
+            setupListingCards();
+        }
+
+        function clearFilters() {
+            const form = document.getElementById('filters-form');
+            form.reset();
+            applyFiltersAndSort();
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('sidebar-open');
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+</html>

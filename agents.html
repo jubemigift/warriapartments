@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connect with Agents - Warri Apartment Hunt</title>
+    <meta name="description" content="Connect with verified real estate agents in Warri. Get personalized assistance finding your perfect home.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <div class="nav-logo"></div>
+                <a href="/" class="nav-title">Warri Apartment Hunt</a>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/listings.html" class="nav-link">House Listing</a></li>
+                <li><a href="/sale.html" class="nav-link">Property for Sale</a></li>
+                <li><a href="/agents.html" class="nav-link active">Connect with Agent</a></li>
+                <li><a href="/apply.html" class="nav-link">Apply</a></li>
+                <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+            </ul>
+            
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <i class="ri-menu-line"></i>
+                <i class="ri-menu-line"></i>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <div class="container">
+            <strong>All agent fees are Fixed, affordable and fair, no extra cost!</strong>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Connect with Our Agents</h1>
+                <p>Our verified agents are here to help you find the perfect home in Warri and surrounding areas</p>
+            </div>
+            
+            <div class="agents-grid" id="agents-grid">
+                <!-- Agents will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="nav-logo"></div>
+                        <span>Warri Apartment Hunt</span>
+                    </div>
+                    <address>Warri, Delta State, Nigeria</address>
+                </div>
+                <div class="footer-links">
+                    <a href="/faq.html">FAQ</a>
+                    <a href="/support.html">Support</a>
+                    <a href="/terms.html">Terms</a>
+                    <a href="/privacy.html">Privacy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Agent Details Modal -->
+    <div class="modal" id="agent-modal">
+        <div class="modal-backdrop" data-modal-close></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Agent Details</h3>
+                <button class="modal-close" data-modal-close aria-label="Close modal">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="agent-details-full" id="agent-details-full">
+                    <!-- Agent details will be populated -->
+                </div>
+                <div class="agent-contact-actions">
+                    <a href="#" class="btn btn-primary" id="modal-whatsapp-agent">
+                        <i class="ri-whatsapp-line"></i>
+                        Contact via WhatsApp
+                    </a>
+                    <a href="#" class="btn btn-outline" id="modal-call-agent">
+                        <i class="ri-phone-line"></i>
+                        Call Agent
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/storage.js"></script>
+    <script src="/assets/js/state.js"></script>
+    <script src="/assets/js/ui.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeStorage();
+            setupNavigation();
+            loadAgents();
+            
+            // Listen for storage updates
+            window.addEventListener('storageUpdated', function(event) {
+                if (event.detail.keys.includes('agents')) {
+                    loadAgents();
+                }
+            });
+        });
+
+        function loadAgents() {
+            const agents = getAgents();
+            const container = document.getElementById('agents-grid');
+            
+            if (agents.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="ri-user-3-line"></i>
+                        <h3>No agents available</h3>
+                        <p>Please check back later</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = agents.map(agent => renderAgentCard(agent)).join('');
+            setupAgentCards();
+        }
+
+        function renderAgentCard(agent) {
+            const listings = getListings();
+            const saleListings = getSaleListings();
+            const activeListings = listings.filter(l => l.agentId === agent.id && l.available).length + 
+                                  saleListings.filter(l => l.agentId === agent.id && l.available).length;
+            
+            return `
+                <div class="agent-card">
+                    <div class="agent-image">
+                        <img src="${agent.avatarUrl}" alt="${agent.name}" loading="lazy">
+                    </div>
+                    <div class="agent-content">
+                        <h3 class="agent-name">${agent.name}</h3>
+                        <div class="agent-contact">
+                            <p class="agent-phone">
+                                <i class="ri-phone-line"></i>
+                                ${agent.phone}
+                            </p>
+                            <p class="agent-whatsapp">
+                                <i class="ri-whatsapp-line"></i>
+                                WhatsApp Available
+                            </p>
+                        </div>
+                        <div class="agent-areas">
+                            <p><strong>Areas Covered:</strong></p>
+                            <div class="area-chips">
+                                ${agent.areasCovered.map(area => `<span class="chip">${area}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div class="agent-stats">
+                            <span class="stat-item">
+                                <i class="ri-home-4-line"></i>
+                                ${activeListings} Active Listings
+                            </span>
+                        </div>
+                        <div class="agent-actions">
+                            <button class="btn btn-primary view-agent-btn" data-agent-id="${agent.id}">
+                                View Details
+                            </button>
+                            <a href="https://wa.me/${agent.whatsapp.replace('+', '')}?text=${encodeURIComponent('Hello, I\'m looking for an apartment in Warri. Can you help me?')}" 
+                               class="btn btn-outline" target="_blank">
+                                <i class="ri-whatsapp-line"></i>
+                                WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupAgentCards() {
+            document.querySelectorAll('.view-agent-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const agentId = this.dataset.agentId;
+                    const agent = getAgent(agentId);
+                    if (agent) {
+                        showAgentModal(agent);
+                    }
+                });
+            });
+        }
+
+        function showAgentModal(agent) {
+            const modal = document.getElementById('agent-modal');
+            const agentDetails = document.getElementById('agent-details-full');
+            
+            const listings = getListings();
+            const saleListings = getSaleListings();
+            const activeListings = listings.filter(l => l.agentId === agent.id && l.available).length + 
+                                  saleListings.filter(l => l.agentId === agent.id && l.available).length;
+            
+            agentDetails.innerHTML = `
+                <div class="agent-profile-full">
+                    <div class="agent-header">
+                        <img src="${agent.avatarUrl}" alt="${agent.name}" class="agent-avatar-xl">
+                        <div class="agent-info">
+                            <h4>${agent.name}</h4>
+                            <p class="agent-phone-full">
+                                <i class="ri-phone-line"></i>
+                                ${agent.phone}
+                            </p>
+                            <p class="agent-whatsapp-full">
+                                <i class="ri-whatsapp-line"></i>
+                                ${agent.whatsapp}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="agent-areas-full">
+                        <h5>Areas Covered</h5>
+                        <div class="area-chips-full">
+                            ${agent.areasCovered.map(area => `<span class="chip">${area}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="agent-stats-full">
+                        <div class="stat-card">
+                            <i class="ri-home-4-line"></i>
+                            <span class="stat-number">${activeListings}</span>
+                            <span class="stat-label">Active Listings</span>
+                        </div>
+                    </div>
+                    
+                    ${agent.bio ? `
+                        <div class="agent-bio-full">
+                            <h5>About</h5>
+                            <p>${agent.bio}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            const whatsappBtn = document.getElementById('modal-whatsapp-agent');
+            const callBtn = document.getElementById('modal-call-agent');
+            
+            const message = encodeURIComponent('Hello, I\'m looking for an apartment in Warri. Can you help me?');
+            whatsappBtn.href = `https://wa.me/${agent.whatsapp.replace('+', '')}?text=${message}`;
+            callBtn.href = `tel:${agent.phone}`;
+            
+            openModal(modal);
+        }
+    </script>
+</body>
+</html>
