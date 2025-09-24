@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties for Sale - Warri Apartment Hunt</title>
+    <meta name="description" content="Browse properties for sale in Warri and surrounding areas. Find your dream home with transparent pricing.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <div class="nav-logo"></div>
+                <a href="/" class="nav-title">Warri Apartment Hunt</a>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/listings.html" class="nav-link">House Listing</a></li>
+                <li><a href="/sale.html" class="nav-link active">Property for Sale</a></li>
+                <li><a href="/agents.html" class="nav-link">Connect with Agent</a></li>
+                <li><a href="/apply.html" class="nav-link">Apply</a></li>
+                <li><a href="/faq.html" class="nav-link">FAQ</a></li>
+            </ul>
+            
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <i class="ri-menu-line"></i>
+                <i class="ri-menu-line"></i>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <div class="container">
+            <strong>All agent fees are Fixed, affordable and fair, no extra cost!</strong>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Properties for Sale</h1>
+                <p>Find your dream home in Warri and surrounding areas</p>
+            </div>
+            
+            <div class="sale-filters">
+                <form class="sale-filters-form" id="sale-filters-form">
+                    <div class="filter-group">
+                        <select name="location" class="filter-select">
+                            <option value="">All Locations</option>
+                            <option value="Warri">Warri</option>
+                            <option value="Effurun">Effurun</option>
+                            <option value="Ekpan">Ekpan</option>
+                            <option value="Ugborikoko">Ugborikoko</option>
+                            <option value="Airport Road">Airport Road</option>
+                            <option value="Jakpa">Jakpa</option>
+                            <option value="PTI">PTI</option>
+                            <option value="Udu">Udu</option>
+                            <option value="Ekete">Ekete</option>
+                            <option value="Okuokoko">Okuokoko</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <input type="number" name="minBudget" placeholder="Min Budget (₦)" class="filter-input">
+                        <input type="number" name="maxBudget" placeholder="Max Budget (₦)" class="filter-input">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <select name="type" class="filter-select">
+                            <option value="">Property Type</option>
+                            <option value="Self-contain">Self-contain</option>
+                            <option value="Mini-flat">Mini-flat</option>
+                            <option value="1BR">1BR</option>
+                            <option value="2BR">2BR</option>
+                            <option value="3BR">3BR</option>
+                            <option value="Bungalow">Bungalow</option>
+                            <option value="Duplex">Duplex</option>
+                        </select>
+                    </div>
+                    
+                    <button type="button" class="btn btn-outline" id="clear-sale-filters">Clear</button>
+                </form>
+            </div>
+            
+            <div class="sale-content">
+                <div class="listings-header">
+                    <div class="results-info">
+                        <span id="sale-results-count">0 properties found</span>
+                    </div>
+                    
+                    <div class="sort-controls">
+                        <select name="sort" id="sale-sort-select" class="filter-select">
+                            <option value="newest">Newest First</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="listings-grid" id="sale-listings-grid">
+                    <!-- Sale listings will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="nav-logo"></div>
+                        <span>Warri Apartment Hunt</span>
+                    </div>
+                    <address>Warri, Delta State, Nigeria</address>
+                </div>
+                <div class="footer-links">
+                    <a href="/faq.html">FAQ</a>
+                    <a href="/support.html">Support</a>
+                    <a href="/terms.html">Terms</a>
+                    <a href="/privacy.html">Privacy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Agent Modal -->
+    <div class="modal" id="contact-agent-modal">
+        <div class="modal-backdrop" data-modal-close></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Contact Agent</h3>
+                <button class="modal-close" data-modal-close aria-label="Close modal">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="agent-contact-info" id="agent-contact-info">
+                    <!-- Agent info will be populated -->
+                </div>
+                <div class="contact-actions">
+                    <a href="#" class="btn btn-primary" id="whatsapp-agent">
+                        <i class="ri-whatsapp-line"></i>
+                        Contact via WhatsApp
+                    </a>
+                    <a href="#" class="btn btn-outline" id="call-agent">
+                        <i class="ri-phone-line"></i>
+                        Call Agent
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/storage.js"></script>
+    <script src="/assets/js/state.js"></script>
+    <script src="/assets/js/ui.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeStorage();
+            setupNavigation();
+            setupSalePage();
+            
+            // Listen for storage updates
+            window.addEventListener('storageUpdated', function(event) {
+                if (event.detail.keys.includes('saleListings')) {
+                    applySaleFiltersAndSort();
+                }
+            });
+        });
+
+        function setupSalePage() {
+            const form = document.getElementById('sale-filters-form');
+            const sortSelect = document.getElementById('sale-sort-select');
+            
+            // Setup event listeners
+            form.addEventListener('change', debounce(applySaleFiltersAndSort, 300));
+            document.getElementById('clear-sale-filters').addEventListener('click', clearSaleFilters);
+            sortSelect.addEventListener('change', applySaleFiltersAndSort);
+            
+            // Initial load
+            applySaleFiltersAndSort();
+        }
+
+        function applySaleFiltersAndSort() {
+            const form = document.getElementById('sale-filters-form');
+            const sortSelect = document.getElementById('sale-sort-select');
+            const filters = getSaleFormFilters(form);
+            const sortBy = sortSelect.value;
+            
+            let listings = getSaleListings();
+            
+            // Apply filters
+            listings = filterSaleListings(listings, filters);
+            
+            // Apply sort
+            listings = sortListings(listings, sortBy);
+            
+            // Update results
+            updateSaleResultsCount(listings.length);
+            renderSaleListings(listings);
+        }
+
+        function getSaleFormFilters(form) {
+            const formData = new FormData(form);
+            const filters = {};
+            
+            for (const [key, value] of formData.entries()) {
+                if (value.trim()) {
+                    filters[key] = value;
+                }
+            }
+            
+            return filters;
+        }
+
+        function filterSaleListings(listings, filters) {
+            return listings.filter(listing => {
+                // Location filter
+                if (filters.location && listing.area !== filters.location) return false;
+                
+                // Budget filter
+                if (filters.minBudget && listing.price < parseInt(filters.minBudget)) return false;
+                if (filters.maxBudget && listing.price > parseInt(filters.maxBudget)) return false;
+                
+                // Type filter
+                if (filters.type && listing.type !== filters.type) return false;
+                
+                return true;
+            });
+        }
+
+        function updateSaleResultsCount(count) {
+            document.getElementById('sale-results-count').textContent = `${count} propert${count !== 1 ? 'ies' : 'y'} found`;
+        }
+
+        function renderSaleListings(listings) {
+            const container = document.getElementById('sale-listings-grid');
+            
+            if (listings.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="ri-home-4-line"></i>
+                        <h3>No properties found</h3>
+                        <p>Try adjusting your filters to see more results</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = listings.map(listing => renderSaleListingCard(listing)).join('');
+            setupSaleListingCards();
+        }
+
+        function renderSaleListingCard(listing) {
+            const agent = getAgent(listing.agentId);
+            
+            return `
+                <div class="listing-card">
+                    <div class="listing-image">
+                        <img src="${listing.leadImageUrl}" alt="${listing.title}" loading="lazy">
+                        <div class="listing-badge sale-badge">For Sale</div>
+                    </div>
+                    <div class="listing-content">
+                        <h3 class="listing-title">${listing.title}</h3>
+                        <p class="listing-location">
+                            <i class="ri-map-pin-line"></i>
+                            ${listing.area}, ${listing.city}, ${listing.state}
+                        </p>
+                        <p class="listing-description">${listing.description.substring(0, 140)}${listing.description.length > 140 ? '...' : ''}</p>
+                        <div class="listing-price">₦${listing.price.toLocaleString()}</div>
+                        <div class="listing-specs">
+                            <span class="spec-item">
+                                <i class="ri-hotel-bed-line"></i>
+                                ${listing.bedrooms} bed${listing.bedrooms !== 1 ? 's' : ''}
+                            </span>
+                            <span class="spec-item">
+                                <i class="ri-drop-line"></i>
+                                ${listing.bathrooms} bath${listing.bathrooms !== 1 ? 's' : ''}
+                            </span>
+                            ${listing.sizeSqm ? `<span class="spec-item"><i class="ri-ruler-line"></i>${listing.sizeSqm}m²</span>` : ''}
+                        </div>
+                        <div class="listing-agent">
+                            <img src="${agent?.avatarUrl || '/assets/img/default-agent.jpg'}" alt="${agent?.name || 'Agent'}" class="agent-avatar">
+                            <span class="agent-name">${agent?.name || 'N/A'}</span>
+                        </div>
+                        <div class="listing-actions">
+                            <button class="btn btn-primary contact-agent-btn" data-listing-id="${listing.id}">
+                                Contact Agent
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupSaleListingCards() {
+            document.querySelectorAll('.contact-agent-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const listingId = this.dataset.listingId;
+                    const listing = getSaleListings().find(l => l.id === listingId);
+                    if (listing) {
+                        showContactAgentModal(listing.agentId, listing.title);
+                    }
+                });
+            });
+        }
+
+        function showContactAgentModal(agentId, propertyTitle) {
+            const agent = getAgent(agentId);
+            if (!agent) return;
+            
+            const modal = document.getElementById('contact-agent-modal');
+            const agentInfo = document.getElementById('agent-contact-info');
+            
+            agentInfo.innerHTML = `
+                <div class="agent-profile">
+                    <img src="${agent.avatarUrl}" alt="${agent.name}" class="agent-avatar-large">
+                    <div class="agent-details">
+                        <h4>${agent.name}</h4>
+                        <p class="agent-phone">${agent.phone}</p>
+                        <p class="agent-areas">Areas: ${agent.areasCovered.join(', ')}</p>
+                        ${agent.bio ? `<p class="agent-bio">${agent.bio}</p>` : ''}
+                    </div>
+                </div>
+            `;
+            
+            const whatsappBtn = document.getElementById('whatsapp-agent');
+            const callBtn = document.getElementById('call-agent');
+            
+            const message = encodeURIComponent(`Hello, I'm interested in ${propertyTitle}. Can we discuss?`);
+            whatsappBtn.href = `https://wa.me/${agent.whatsapp.replace('+', '')}?text=${message}`;
+            callBtn.href = `tel:${agent.phone}`;
+            
+            openModal(modal);
+        }
+
+        function clearSaleFilters() {
+            const form = document.getElementById('sale-filters-form');
+            form.reset();
+            applySaleFiltersAndSort();
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+</html>
